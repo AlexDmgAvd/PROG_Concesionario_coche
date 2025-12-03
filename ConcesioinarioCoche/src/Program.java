@@ -1,12 +1,12 @@
-import Controlador.IConcesionarioControlador;
-import Vista.IVistaInterfaz;
+import Controlador.ControladorConcesionario;
 import Vista.VistaSimple;
 
 public class Program {
 
     static void main(String[] args) {
-        IVistaInterfaz vista = new VistaSimple();
-        IConcesionarioControlador controlador = new ControladorConcesionario
+        VistaSimple vista = new VistaSimple();
+        ControladorConcesionario controlador = new ControladorConcesionario(vista);
+        controlador.run();
 
 
     }

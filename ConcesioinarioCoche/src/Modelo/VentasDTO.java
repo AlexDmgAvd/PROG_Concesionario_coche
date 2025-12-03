@@ -25,37 +25,37 @@ public class VentasDTO {
         return id;
     }
 
-    public String getCliente() {
-        return cliente;
-    }
-
-    public String getCocheCliente() {
-        return cocheCliente;
-    }
-
-    public Date getFecha() {
-        return fecha;
-    }
-
-    public float getPrecioVenta() {
-        return precioVenta;
-    }
-
     //Setter
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getCliente() {
+        return cliente;
     }
 
     public void setCliente(String cliente) {
         this.cliente = cliente;
     }
 
+    public String getCocheCliente() {
+        return cocheCliente;
+    }
+
     public void setCocheCliente(String cocheCliente) {
         this.cocheCliente = cocheCliente;
     }
 
+    public Date getFecha() {
+        return fecha;
+    }
+
     public void setFecha(Date fecha) {
         this.fecha = fecha;
+    }
+
+    public float getPrecioVenta() {
+        return precioVenta;
     }
 
     public void setPrecioVenta(float precioVenta) {

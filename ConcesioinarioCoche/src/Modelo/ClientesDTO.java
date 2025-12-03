@@ -19,22 +19,22 @@ public class ClientesDTO {
         return dni;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public int getTelefono() {
-        return telefono;
-    }
-
-    //Setters
-
     public void setDni(String dni) {
         this.dni = dni;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    //Setters
+
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public int getTelefono() {
+        return telefono;
     }
 
     public void setTelefono(int telefono) {

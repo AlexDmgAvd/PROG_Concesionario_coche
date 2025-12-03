@@ -25,46 +25,45 @@ public class CocheDTO {
         return marca;
     }
 
-    public String getModelo() {
-        return modelo;
-    }
-
-    public String getMatricula() {
-        return matricula;
-    }
-
-    public float getPrecio() {
-        return precio;
-    }
-
-    public int getAnho() {
-        return anho;
-    }
-
-    public int getKm() {
-        return km;
-    }
-
-
     //Setters
     public void setMarca(String marca) {
         this.marca = marca;
+    }
+
+    public String getModelo() {
+        return modelo;
     }
 
     public void setModelo(String modelo) {
         this.modelo = modelo;
     }
 
-    public void setPrecio(float precio) {
-        this.precio = precio;
+    public String getMatricula() {
+        return matricula;
     }
 
     public void setMatricula(String matricula) {
         this.matricula = matricula;
     }
 
+    public float getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(float precio) {
+        this.precio = precio;
+    }
+
+    public int getAnho() {
+        return anho;
+    }
+
     public void setAnho(int anho) {
         this.anho = anho;
+    }
+
+    public int getKm() {
+        return km;
     }
 
     public void setKm(int km) {
