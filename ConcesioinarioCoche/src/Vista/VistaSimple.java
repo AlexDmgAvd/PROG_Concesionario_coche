@@ -1,11 +1,14 @@
 package Vista;
 
 
+import Modelo.CocheDTO;
+
 import java.util.Scanner;
 
-public class VistaSimple {
+public class VistaSimple implements IVista{
     Scanner sc = new Scanner(System.in);
 
+    @Override
     public int menu(){
 
         System.out.println("-------------LOGO---------------");
@@ -40,6 +43,33 @@ public class VistaSimple {
         return option -1;
     }
 
+
+    public CocheDTO aniadirCocheMenu(){
+
+        System.out.println("Para añadir la un coche se necesitan los siguientes datos: ");
+
+        System.out.println("Marca:");
+        String marca = sc.nextLine();
+
+        System.out.println("Modelo:");
+        String modelo = sc.nextLine();
+
+        System.out.println("Matricula:");
+        String matricula = sc.nextLine();
+
+        System.out.println("Precio: ");
+        int precio = sc.nextInt();
+
+        System.out.println("Año del Modelo: ");
+        int anho = sc.nextInt();
+
+        System.out.println("Kilometros Totales: ");
+        int km = sc.nextInt();
+
+
+
+        return new CocheDTO(marca,modelo,matricula,precio,anho,km);
+    }
 
 
 }

@@ -8,7 +8,7 @@ import Vista.VistaSimple;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ControladorConcesionario {
+public class ControladorConcesionario implements IControlador {
 
     // Memoria
 
@@ -58,11 +58,8 @@ public class ControladorConcesionario {
         clientes = listaCliente;
     }
 
-    public int iniciarMenu() {
 
-    }
-
-    public void añadirCoche() {
+    public void anhadirCoche(CocheDTO coche) {
 
     }
 
@@ -87,6 +84,16 @@ public class ControladorConcesionario {
     }
 
     public void run(){
+
+
+        int op = vista.menu();
+        if (op == 1){
+
+            CocheDTO coche = vista.aniadirCocheMenu();
+            anhadirCoche(coche); //aniadirCoche(coche)
+            //Mostrar resultado de aniadir coches
+            //vista.mostrarError("");
+        }
 
     }
 }
