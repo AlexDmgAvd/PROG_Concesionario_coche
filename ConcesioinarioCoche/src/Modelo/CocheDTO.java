@@ -20,12 +20,11 @@ public class CocheDTO {
         this.km = km;
     }
 
-    //Getters
+    //Getters y Setters
     public String getMarca() {
         return marca;
     }
 
-    //Setters
     public void setMarca(String marca) {
         this.marca = marca;
     }
