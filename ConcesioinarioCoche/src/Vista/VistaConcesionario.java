@@ -8,7 +8,7 @@ import Modelo.VentasDTO;
 import java.util.List;
 import java.util.Scanner;
 
-public class VistaSimple implements IVista {
+public class VistaConcesionario implements IVista {
     Scanner sc = new Scanner(System.in);
 
 
@@ -18,21 +18,26 @@ public class VistaSimple implements IVista {
     public int menu() {
 
         System.out.println("\n");
-        System.out.println("--\uD83D\uDE97 CONCESIONARIO RODOVIGO \uD83D\uDE97--");
+        System.out.println("|^^^^^^^^^^^\\||____\n" +
+                "| RODOVIGO  |||\"\"'|\"\"\\__,_\n" +
+                "| _____________ l||__|__|__|)\n" +
+                "..|(@)@)\"\"\"\"\"\"\"**|(@)(@)**|(@)\n");
         System.out.println("\n");
 
-        System.out.println("---------------------------------");
-        System.out.println("----------Menu Principal---------");
-        System.out.println("---------------------------------");
-        System.out.println("|| 1. Añadir Coche             ||");
-        System.out.println("|| 2. Mostrar Todos los Coches ||");
-        System.out.println("|| 3. Buscar por Matrícula     ||");
-        System.out.println("|| 4. Registrar Cliente        ||");
-        System.out.println("|| 5. Registrar Venta          ||");
-        System.out.println("|| 6. Listar Ventas            ||");
-        System.out.println("|| 7. Salir                    ||");
-        System.out.println("---------------------------------");
-        System.out.println("---------------------------------");
+        System.out.println("-----------------------------------------");
+        System.out.println("--------------Menu Principal-------------");
+        System.out.println("-----------------------------------------");
+        System.out.println("|| 1. Añadir Coche                     ||");
+        System.out.println("|| 2. Mostrar Todos los Coches         ||");
+        System.out.println("|| 3. Buscar por Matrícula             ||");
+        System.out.println("|| 4. Buscar por Marca                 ||");
+        System.out.println("|| 5. Buscar por año de fabricacion    ||");
+        System.out.println("|| 6. Registrar Cliente                ||");
+        System.out.println("|| 7. Registrar Venta                  ||");
+        System.out.println("|| 8. Listar Ventas                    ||");
+        System.out.println("|| 9. Salir                            ||");
+        System.out.println("-----------------------------------------");
+        System.out.println("-----------------------------------------");
 
         int option = -1;
 

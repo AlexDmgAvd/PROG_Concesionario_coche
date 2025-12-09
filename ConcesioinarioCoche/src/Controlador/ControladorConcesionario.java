@@ -3,7 +3,7 @@ package Controlador;
 import Modelo.ClientesDTO;
 import Modelo.CocheDTO;
 import Modelo.VentasDTO;
-import Vista.VistaSimple;
+import Vista.VistaConcesionario;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,11 +15,11 @@ public class ControladorConcesionario implements IControlador {
     private List<CocheDTO> coches;
     private List<ClientesDTO> clientes;
     private List<VentasDTO> ventas;
-    private VistaSimple vista;
+    private VistaConcesionario vista;
 
     // Constructor Controlador
 
-    public ControladorConcesionario(VistaSimple vista) {
+    public ControladorConcesionario(VistaConcesionario vista) {
 
         this.vista = vista;
     }
@@ -83,20 +83,34 @@ public class ControladorConcesionario implements IControlador {
 
     }
 
-    public void run(){
+    public void run() {
+
+        while (true) {
+            int op = vista.menu();
+            if (op == 1) {
+                CocheDTO coche = vista.aniadirCocheMenu();
+                anhadirCoche(coche);
+            }
+
+            if (op == 2) {
+                CocheDTO coche = vista.mostrarCoche();
+                mostrarCoche(coche);
 
 
-        int op = vista.menu();
-        if (op == 1){
+            }
 
-            CocheDTO coche = vista.aniadirCocheMenu();
-            anhadirCoche(coche); //aniadirCoche(coche)
-            //Mostrar resultado de aniadir coches
-            //vista.mostrarError("");
+
+
+            }
+
+
+
+
+
+
+
         }
-
     }
-}
 
 
 
