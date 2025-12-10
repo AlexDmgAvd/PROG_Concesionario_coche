@@ -6,6 +6,7 @@ import Modelo.VentasDTO;
 import Vista.VistaConcesionario;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ControladorConcesionario implements IControlador {
@@ -22,6 +23,10 @@ public class ControladorConcesionario implements IControlador {
     public ControladorConcesionario(VistaConcesionario vista) {
 
         this.vista = vista;
+        this.coches = new ArrayList<>();
+        this.clientes = new ArrayList<>();
+        this.ventas = new ArrayList<>();
+
     }
 
 
@@ -56,61 +61,138 @@ public class ControladorConcesionario implements IControlador {
         listaCliente.add(new ClientesDTO("11223344F", "Ana", 655333444));
 
         clientes = listaCliente;
-    }
 
+        List<VentasDTO> listaVentas = new ArrayList<>();
+        listaVentas.add(new VentasDTO(1, "Maria", "Kia", new Date(125, 12, 04), 20500));
+        listaVentas.add(new VentasDTO(2, "Ana", "Mercedes", new Date(125, 7, 21), 21500));
+        listaVentas.add(new VentasDTO(3, "Pedro", "Mercedes", new Date(125, 2, 05), 26900));
+        listaVentas.add(new VentasDTO(4, "Maria", "Volkswagen", new Date(125, 12, 20), 14800));
 
-    public void anhadirCoche(CocheDTO coche) {
-
-    }
-
-    public void mostrarCoche() {
-
-    }
-
-    public void buscarCoche() {
+        ventas = listaVentas;
 
     }
 
-    public void registrarCliente() {
+
+    public void anhadirCocheCTRLDR(CocheDTO coche) {
+
+        coches.add(coche);
 
     }
 
-    public void registrarVenta() {
+    public void mostrarTodosLosCocheCTRLDR() {
+
+        vista.mostrarListaCoches(coches);
 
     }
 
-    public void listarVenta() {
+    public void buscarCochePorMarcaCTRLDR() {
+
+        String busqueda = vista.buscarCochePorMarca();
+        boolean seEncontroAlgunCoche = false;
+        for (CocheDTO coche : coches ){
+
+            if (coche.getMarca().equals(busqueda)){
+                vista.mostrarCoche(coche);
+                seEncontroAlgunCoche = true;
+            }
+        }
+
+        if(!seEncontroAlgunCoche) vista.mostrarError("La Marca introducida no esta registrada");
+
+
+    }
+
+    public void buscarCochePorPrecioCTRLDR() {
+
+        int op = vista.mostrarSubmenuPreciosCoche();
+        int min = 0, max = 0;
+        boolean seEncontroAlgunCoche = false;
+
+        if(op == 1){
+            min = 12000;
+            max = 16000;
+        }
+
+        if (op == 2){
+            min = 16000;
+            max = 20000;
+        }
+
+        if (op == 3){
+            min = 20000;
+            max = 30000;
+        }
+
+        if (op == 4){
+            min = 30000;
+            max = 50000;
+        }
+
+        if (op == 5){
+            return;
+        }
+
+        for (CocheDTO coche : coches ){
+
+            if (coche.getPrecio() >= min && coche.getPrecio() <= max){
+                vista.mostrarCoche(coche);
+                seEncontroAlgunCoche = true;
+            }
+        }
+
+        if(!seEncontroAlgunCoche) vista.mostrarError("El precio introducido no esta registrada");
+
+
+
+    }
+
+    public void buscarCochePorAnhoCTRLDR() {
+
+
+
+    }
+
+
+    public void registrarClienteCTRLDR() {
+
+    }
+
+    public void registrarVentaCTRLDR() {
+
+    }
+
+    public void listarVentaCTRLDR() {
 
     }
 
     public void run() {
 
         while (true) {
+
             int op = vista.menu();
             if (op == 1) {
                 CocheDTO coche = vista.aniadirCocheMenu();
-                anhadirCoche(coche);
+                anhadirCocheCTRLDR(coche);
             }
 
             if (op == 2) {
-                CocheDTO coche = vista.mostrarCoche();
-                mostrarCoche(coche);
-
-
+                mostrarTodosLosCocheCTRLDR();
             }
 
-
-
+            if (op == 3){
+                buscarCochePorMarcaCTRLDR();
             }
 
-
-
+            if (op == 4){
+                buscarCochePorPrecioCTRLDR();
+            }
 
 
 
 
         }
     }
+}
 
 
 

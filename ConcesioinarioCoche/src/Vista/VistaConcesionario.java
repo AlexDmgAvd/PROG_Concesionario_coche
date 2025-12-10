@@ -29,8 +29,8 @@ public class VistaConcesionario implements IVista {
         System.out.println("-----------------------------------------");
         System.out.println("|| 1. Añadir Coche                     ||");
         System.out.println("|| 2. Mostrar Todos los Coches         ||");
-        System.out.println("|| 3. Buscar por Matrícula             ||");
-        System.out.println("|| 4. Buscar por Marca                 ||");
+        System.out.println("|| 3. Buscar por Marca                 ||");
+        System.out.println("|| 4. Buscar por precio                ||");
         System.out.println("|| 5. Buscar por año de fabricacion    ||");
         System.out.println("|| 6. Registrar Cliente                ||");
         System.out.println("|| 7. Registrar Venta                  ||");
@@ -55,7 +55,41 @@ public class VistaConcesionario implements IVista {
 
         }
 
-        return option - 1;
+        return option;
+    }
+
+    @Override
+    public int mostrarSubmenuPreciosCoche(){
+
+        System.out.println("-----------------------------------------");
+        System.out.println("--------------Menu Precios---------------");
+        System.out.println("-----------------------------------------");
+        System.out.println("|| 1. De 12.000 a 16.000 €             ||");
+        System.out.println("|| 2. De 16.000 a 20.000 €             ||");
+        System.out.println("|| 3. De 20.000 a 30.000 €             ||");
+        System.out.println("|| 4. De 30.000 a 50.000 €             ||");
+        System.out.println("|| 5. Cancelar                         ||");
+        System.out.println("-----------------------------------------");
+        System.out.println("-----------------------------------------");
+
+        int option = -1;
+
+        while (true) {
+            System.out.println("\n");
+            System.out.println("-Selecciona una opcion-");
+            option = sc.nextInt();
+            sc.nextLine();
+
+            if (option >= 1 && option <= 5) {
+                break;
+            }
+
+            System.err.println("Introduce una opción valida");
+
+        }
+
+        return option;
+
     }
 
     @Override
@@ -124,12 +158,16 @@ public class VistaConcesionario implements IVista {
     @Override
     public void mostrarCoche(CocheDTO coche) {
 
+        System.out.println("------------------------------------");
         System.out.println("Marca: " + coche.getMarca());
         System.out.println("Modelo: " + coche.getModelo());
         System.out.println("Matrícula: " + coche.getMatricula());
         System.out.println("Precio: " + coche.getPrecio() + " €");
         System.out.println("Año: " + coche.getAnho());
         System.out.println("Kilómetros: " + coche.getKm() + " km");
+        System.out.println("------------------------------------");
+
+
 
     }
 
@@ -149,11 +187,32 @@ public class VistaConcesionario implements IVista {
     }
 
     @Override
-    public String buscarCocheMenu() {
+    public String buscarCochePorMarca() {
 
-        System.out.println("Introduce la matricula del coche buscado:");
-        return sc.nextLine().toUpperCase();
+        System.out.println("Introduce la marca del coche buscado:");
+        return sc.nextLine();
     }
+
+    @Override
+    public float buscarCochePorPrecio(){
+
+        System.out.println("Introduce un precio estimado para el coche:");
+
+        int opcion = 0;
+
+        opcion = sc.nextInt();
+        sc.nextLine();
+
+        return opcion;
+    }
+
+    @Override
+    public int buscarCochePorAnho(){
+
+        System.out.println("Introduce el año de fabricacion del coche buscado:");
+        return sc.nextInt();
+    }
+
 
     @Override
     public void mostrarCochesEncontrados(List<CocheDTO> coches) {
@@ -217,12 +276,19 @@ public class VistaConcesionario implements IVista {
 
     @Override
     public void mostrarMensaje(String mensaje) {
+        System.out.println(mensaje);
 
     }
 
     @Override
     public void mostrarError(String error) {
+        System.err.println(error);
 
+    }
+
+    public void mostrarDespedida(){
+        System.out.println("Gracias por utilizar nuestra aplicacion");
+        System.out.println("¡¡Hasta la proxima!!");
     }
 
 

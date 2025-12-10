@@ -9,13 +9,19 @@ public interface IVista {
 
     int menu();
 
+    int mostrarSubmenuPreciosCoche();
+
     CocheDTO aniadirCocheMenu();
 
     void mostrarCoche(CocheDTO coche);
 
     void mostrarListaCoches(List<CocheDTO> coches);
 
-    String buscarCocheMenu();
+    String buscarCochePorMarca();
+
+    float buscarCochePorPrecio();
+
+    int buscarCochePorAnho();
 
     void mostrarCochesEncontrados(List<CocheDTO> coches);
 
