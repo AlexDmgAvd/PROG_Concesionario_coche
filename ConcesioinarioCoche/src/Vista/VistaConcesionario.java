@@ -32,10 +32,11 @@ public class VistaConcesionario implements IVista {
         System.out.println("|| 3. Buscar por Marca                 ||");
         System.out.println("|| 4. Buscar por precio                ||");
         System.out.println("|| 5. Buscar por año de fabricacion    ||");
-        System.out.println("|| 6. Registrar Cliente                ||");
-        System.out.println("|| 7. Registrar Venta                  ||");
-        System.out.println("|| 8. Listar Ventas                    ||");
-        System.out.println("|| 9. Salir                            ||");
+        System.out.println("|| 6. Mostrar Todos los Clientes       ||");
+        System.out.println("|| 7. Registrar Cliente                ||");
+        System.out.println("|| 8. Registrar Venta                  ||");
+        System.out.println("|| 9. Listar Ventas                    ||");
+        System.out.println("|| 10. Salir                           ||");
         System.out.println("-----------------------------------------");
         System.out.println("-----------------------------------------");
 
@@ -47,7 +48,7 @@ public class VistaConcesionario implements IVista {
             option = sc.nextInt();
             sc.nextLine();
 
-            if (option >= 1 && option <= 7) {
+            if (option >= 1 && option <= 10) {
                 break;
             }
 
@@ -149,10 +150,13 @@ public class VistaConcesionario implements IVista {
             System.err.println("Los km no pueden ser menores que cero");
             System.err.println("Introduce un número válido");
             sc.nextLine();
-
         }
+
+        boolean disponible = true;
+
+
         System.out.println("Nuevo coche añadido a expositor");
-        return new CocheDTO(marca, modelo, matricula, precio, anho, km);
+        return new CocheDTO(marca, modelo, matricula, precio, anho, km, disponible);
     }
 
     @Override
@@ -165,6 +169,7 @@ public class VistaConcesionario implements IVista {
         System.out.println("Precio: " + coche.getPrecio() + " €");
         System.out.println("Año: " + coche.getAnho());
         System.out.println("Kilómetros: " + coche.getKm() + " km");
+        System.out.println("Disponible: " + coche.isDisponible());
         System.out.println("------------------------------------");
 
 
@@ -179,9 +184,11 @@ public class VistaConcesionario implements IVista {
 
         for (int i = 0; i < coches.size(); i++) {
             CocheDTO coche = coches.get(i);
-            System.out.println((i + 1) + ". " + coche.getMarca() + " " + coche.getModelo() +
-                    " - Matrícula: " + coche.getMatricula() +
-                    " - Precio: " + coche.getPrecio() + " €");
+            System.out.println((i + 1) + " - MARCA: " + coche.getMarca() + " - MODELO: " + coche.getModelo() +
+                    " - MATRÍCULA: " + coche.getMatricula() +
+                    " - PRECIO: " + coche.getPrecio() + " €" +
+                    " - AÑO: " + coche.getAnho() +
+                    " - DISPONIBLE: " + coche.isDisponible());
         }
 
     }
@@ -260,18 +267,69 @@ public class VistaConcesionario implements IVista {
     }
 
     @Override
-    public void mostrarClienteRegistrado(ClientesDTO cliente) {
+    public void mostrarListaClientes(List<ClientesDTO> clientes) {
+
+        System.out.println("Total de coches en el expositor: " + clientes.size());
+        System.out.println("-------------------------------------------------");
+
+        for (int i = 0; i < clientes.size(); i++) {
+            ClientesDTO cliente = clientes.get(i);
+            System.out.println((i + 1) + "- DNI: " + cliente.getDni() + "- NOMBRE: " + cliente.getNombre() +
+                    " - TELEFONO: " + cliente.getTelefono());
+        }
 
     }
 
     @Override
-    public VentasDTO registrarVentaMenu(List<CocheDTO> cochesDisponibles, List<ClientesDTO> clientes) {
-        return null;
+    public VentasDTO registrarVentaMenu(List<CocheDTO> cochesDisponibles, List<ClientesDTO> clientes, List<VentasDTO> ventas) {
+
+
+        // Mostrar los coches .................................................
+        for (int i = 0; i < cochesDisponibles.size(); i++) {
+            CocheDTO coche = cochesDisponibles.get(i);
+            System.out.println((i + 1) + " - MARCA: " + coche.getMarca() + " - MODELO: " + coche.getModelo() + " - PRECIO: " + coche.getPrecio() + "€");
+        }
+
+        System.out.print("Selecciona coche: ");
+        int cocheSeleccionado = sc.nextInt() - 1;
+        sc.nextLine();
+
+
+
+        // Mostrar los clientes ........................................
+        for (int i = 0; i < clientes.size(); i++) {
+            ClientesDTO cliente = clientes.get(i);
+            System.out.println((i + 1) + " - NOMBRE: " + cliente.getNombre() + " - DNI: " + cliente.getDni());
+        }
+
+        System.out.print("Selecciona cliente: ");
+        int clienteSeleccionado = sc.nextInt() - 1;
+        sc.nextLine();
+
+
+
+        // Crear la venta
+        CocheDTO coche = cochesDisponibles.get(cocheSeleccionado);
+        ClientesDTO cliente = clientes.get(clienteSeleccionado);
+
+        int Id = ventas.size();
+        return new VentasDTO( Id, cliente.getNombre(), coche.getMarca() + coche.getModelo(), new java.util.Date(), coche.getPrecio());
     }
+
 
     @Override
     public void mostrarListaVentas(List<VentasDTO> ventas) {
 
+        System.out.println("Total de ventas en el expositor: " + ventas.size());
+        System.out.println("-------------------------------------------------");
+
+        for (int i = 0; i < ventas.size(); i++) {
+            VentasDTO venta = ventas.get(i);
+            System.out.println((i + 1) + " ID: " + venta.getId() +
+                    " - Cliente: " + venta.getCliente() +
+                    " - Coche: " + venta.getCocheCliente() +
+                    " - Precio: " + venta.getPrecioVenta() + "€");
+        }
     }
 
     @Override
@@ -286,6 +344,7 @@ public class VistaConcesionario implements IVista {
 
     }
 
+    @Override
     public void mostrarDespedida(){
         System.out.println("Gracias por utilizar nuestra aplicacion");
         System.out.println("¡¡Hasta la proxima!!");

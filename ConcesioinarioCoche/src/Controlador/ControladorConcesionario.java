@@ -32,24 +32,25 @@ public class ControladorConcesionario implements IControlador {
 
     // funciones ..............................................................................
 
+
     public void cargarDatosIniciales() {
 
         List<CocheDTO> listaCoche = new ArrayList<>();
-        listaCoche.add(new CocheDTO("Volkswagen", "Golf 1.6 TDI", "5432-JGL", 14500, 2017, 110000));
-        listaCoche.add(new CocheDTO("Opel", "Corsa 1.2T XHL", "4567-MTB", 15200, 2021, 78260));
-        listaCoche.add(new CocheDTO("Nissan", "Juke 1.0 DIG-T", "8765-KPD", 17800, 2020, 52980));
-        listaCoche.add(new CocheDTO("Renault", "Clio E-Tech", "1234-LMN", 21500, 2022, 25000));
-        listaCoche.add(new CocheDTO("Volvo", "XC40 D3 Momentum", "9012-HZX", 26900, 2019, 85000));
-        listaCoche.add(new CocheDTO("Volkswagen", "Golf 1.6 TDI", "2222-JKL", 14800, 2017, 105000));
-        listaCoche.add(new CocheDTO("Renault", "Clio E-Tech", "9988-PLM", 21800, 2022, 31000));
-        listaCoche.add(new CocheDTO("Seat", "Ibiza 1.0 TSI", "5643-HGF", 13900, 2020, 45000));
-        listaCoche.add(new CocheDTO("Toyota", "Corolla Hybrid", "6712-KBG", 20500, 2019, 60000));
-        listaCoche.add(new CocheDTO("Ford", "Focus 1.0 EcoBoost", "3456-JYT", 16200, 2021, 38000));
-        listaCoche.add(new CocheDTO("BMW", "X1 sDrive18d", "7788-KRT", 29500, 2018, 72000));
-        listaCoche.add(new CocheDTO("Audi", "A3 Sportback 1.6 TDI", "8899-MZT", 25500, 2017, 90000));
-        listaCoche.add(new CocheDTO("Mercedes", "A180 CDI", "1122-LHG", 23900, 2019, 64000));
-        listaCoche.add(new CocheDTO("Hyundai", "Tucson 1.6 GDi", "4312-NBV", 21000, 2020, 50000));
-        listaCoche.add(new CocheDTO("Kia", "Sportage 1.6 CRDi", "7812-JSP", 22500, 2021, 43000));
+        listaCoche.add(new CocheDTO("Volkswagen", "Golf 1.6 TDI", "5432-JGL", 14500, 2017, 110000, true));
+        listaCoche.add(new CocheDTO("Opel", "Corsa 1.2T XHL", "4567-MTB", 15200, 2021, 78260, true));
+        listaCoche.add(new CocheDTO("Nissan", "Juke 1.0 DIG-T", "8765-KPD", 17800, 2020, 52980, true));
+        listaCoche.add(new CocheDTO("Renault", "Clio E-Tech", "1234-LMN", 21500, 2022, 25000, true));
+        listaCoche.add(new CocheDTO("Volvo", "XC40 D3 Momentum", "9012-HZX", 26900, 2019, 85000,true));
+        listaCoche.add(new CocheDTO("Volkswagen", "Golf 1.6 TDI", "2222-JKL", 14800, 2017, 105000, true));
+        listaCoche.add(new CocheDTO("Renault", "Clio E-Tech", "9988-PLM", 21800, 2022, 31000, true));
+        listaCoche.add(new CocheDTO("Seat", "Ibiza 1.0 TSI", "5643-HGF", 13900, 2020, 45000, true));
+        listaCoche.add(new CocheDTO("Toyota", "Corolla Hybrid", "6712-KBG", 20500, 2019, 60000,true));
+        listaCoche.add(new CocheDTO("Ford", "Focus 1.0 EcoBoost", "3456-JYT", 16200, 2021, 38000, true));
+        listaCoche.add(new CocheDTO("BMW", "X1 sDrive18d", "7788-KRT", 29500, 2018, 72000, true));
+        listaCoche.add(new CocheDTO("Audi", "A3 Sportback 1.6 TDI", "8899-MZT", 25500, 2017, 90000,true));
+        listaCoche.add(new CocheDTO("Mercedes", "A180 CDI", "1122-LHG", 23900, 2019, 64000, true));
+        listaCoche.add(new CocheDTO("Hyundai", "Tucson 1.6 GDi", "4312-NBV", 21000, 2020, 50000,true));
+        listaCoche.add(new CocheDTO("Kia", "Sportage 1.6 CRDi", "7812-JSP", 22500, 2021, 43000,true));
 
         coches = listaCoche;
 
@@ -72,19 +73,21 @@ public class ControladorConcesionario implements IControlador {
 
     }
 
-
+    @Override
     public void anhadirCocheCTRLDR(CocheDTO coche) {
 
         coches.add(coche);
 
     }
 
+    @Override
     public void mostrarTodosLosCocheCTRLDR() {
 
         vista.mostrarListaCoches(coches);
 
     }
 
+    @Override
     public void buscarCochePorMarcaCTRLDR() {
 
         String busqueda = vista.buscarCochePorMarca();
@@ -97,11 +100,12 @@ public class ControladorConcesionario implements IControlador {
             }
         }
 
-        if(!seEncontroAlgunCoche) vista.mostrarError("La Marca introducida no esta registrada");
+        if(!seEncontroAlgunCoche) vista.mostrarError("La marca introducida no esta registrada");
 
 
     }
 
+    @Override
     public void buscarCochePorPrecioCTRLDR() {
 
         int op = vista.mostrarSubmenuPreciosCoche();
@@ -140,31 +144,93 @@ public class ControladorConcesionario implements IControlador {
             }
         }
 
-        if(!seEncontroAlgunCoche) vista.mostrarError("El precio introducido no esta registrada");
+        if(!seEncontroAlgunCoche) vista.mostrarError("El precio introducido no esta registrado");
 
 
 
     }
 
+    @Override
     public void buscarCochePorAnhoCTRLDR() {
 
+        int busqueda = vista.buscarCochePorAnho();
+        boolean seEncontroAlgunCoche = false;
+        for (CocheDTO coche : coches ){
+
+            if (coche.getAnho() == busqueda){
+                vista.mostrarCoche(coche);
+                seEncontroAlgunCoche = true;
+            }
+        }
+
+        if(!seEncontroAlgunCoche) vista.mostrarError("El año introducido no esta registrada");
 
 
     }
 
+    @Override
+    public void registrarClienteCTRLDR(ClientesDTO cliente) {
 
-    public void registrarClienteCTRLDR() {
-
-    }
-
-    public void registrarVentaCTRLDR() {
+        clientes.add(cliente);
 
     }
 
+    @Override
+    public void mostrarTodosLosClientesCTRLDR(){
+
+        vista.mostrarListaClientes(clientes);
+    }
+
+    @Override
+    public void registrarVentaCTRLDR(List<CocheDTO> coches, List<ClientesDTO> clientes, List<VentasDTO> ventas) {
+
+        // Solo se pueden vender coches disponibles
+        List<CocheDTO> cochesDisponibles = new ArrayList<>();
+
+        for (CocheDTO coche : coches) {
+            if (coche.isDisponible()) {
+                cochesDisponibles.add(coche);
+            }
+        }
+
+        if (cochesDisponibles.isEmpty()) {
+            vista.mostrarError("No hay coches disponibles");
+            return;
+        }
+
+        if (clientes.isEmpty()) {
+            vista.mostrarError("No hay clientes en el expositor");
+            return;
+        }
+
+        VentasDTO venta = vista.registrarVentaMenu(cochesDisponibles, clientes, ventas);
+
+        if (venta != null) {
+            // Marcar coche como vendido
+            for (CocheDTO coche : coches) {
+
+                String infoCoche = coche.getMarca() + " " + coche.getModelo();
+
+                if (infoCoche.equals(venta.getCocheCliente())) {
+                    coche.setDisponible(false);
+                    break;
+                }
+            }
+
+            ventas.add(venta);
+            vista.mostrarMensaje("Venta realizada");
+        }
+
+    }
+
+    @Override
     public void listarVentaCTRLDR() {
 
+        vista.mostrarListaVentas(ventas);
+
     }
 
+    @Override
     public void run() {
 
         while (true) {
@@ -187,9 +253,33 @@ public class ControladorConcesionario implements IControlador {
                 buscarCochePorPrecioCTRLDR();
             }
 
+            if (op == 5){
+                buscarCochePorAnhoCTRLDR();
+            }
 
 
+            if (op == 6){
+                mostrarTodosLosClientesCTRLDR();
+            }
 
+            if (op == 7){
+                ClientesDTO cliente = vista.registrarClienteMenu();
+                registrarClienteCTRLDR(cliente);
+            }
+
+            if (op == 8) {
+
+                registrarVentaCTRLDR(coches,clientes,ventas);
+            }
+
+            if (op == 9) {
+                listarVentaCTRLDR();
+            }
+
+            if (op == 10) {
+                vista.mostrarDespedida();
+                break;
+            }
         }
     }
 }

@@ -9,15 +9,17 @@ public class CocheDTO {
     private float precio;
     private int anho;
     private int km;
+    private boolean disponible;
 
     // Constructor
-    public CocheDTO(String marca, String modelo, String matricula, float precio, int anho, int km) {
+    public CocheDTO(String marca, String modelo, String matricula, float precio, int anho, int km, boolean disponible) {
         this.marca = marca;
         this.modelo = modelo;
         this.matricula = matricula;
         this.precio = precio;
         this.anho = anho;
         this.km = km;
+        this.disponible = disponible;
     }
 
     //Getters y Setters
@@ -67,6 +69,14 @@ public class CocheDTO {
 
     public void setKm(int km) {
         this.km = km;
+    }
+
+    public boolean isDisponible() {
+        return disponible;
+    }
+
+    public void setDisponible(boolean disponible) {
+        this.disponible = disponible;
     }
 }
 

@@ -2,6 +2,7 @@ package Vista;
 
 import Modelo.ClientesDTO;
 import Modelo.CocheDTO;
+import Modelo.VentasDTO;
 
 import java.util.List;
 
@@ -27,15 +28,17 @@ public interface IVista {
 
     ClientesDTO registrarClienteMenu();
 
-    void mostrarClienteRegistrado(ClientesDTO cliente);
+    void mostrarListaClientes(List<ClientesDTO> clientes);
 
-    Modelo.VentasDTO registrarVentaMenu(List<CocheDTO> cochesDisponibles, List<ClientesDTO> clientes);
+    Modelo.VentasDTO registrarVentaMenu(List<CocheDTO> cochesDisponibles, List<ClientesDTO> clientes, List<VentasDTO> ventas);
 
     void mostrarListaVentas(List<Modelo.VentasDTO> ventas);
 
     void mostrarMensaje(String mensaje);
 
     void mostrarError(String error);
+
+    void mostrarDespedida();
 }
 
 
