@@ -9,6 +9,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Implementación del Controlador en el patrón MVC.
+ * Gestiona toda la lógica de negocio del concesionario y coordina
+ * las interacciones entre la Vista y el Modelo.
+ *
+ * @author Alexandre Domínguez Avendaño
+ *
+ */
 public class ControladorConcesionario implements IControlador {
 
     // Memoria
@@ -20,6 +28,12 @@ public class ControladorConcesionario implements IControlador {
 
     // Constructor Controlador
 
+    /**
+     * Constructor que inicializa el controlador con una vista.
+     * Crea las listas vacías de coches, clientes y ventas.
+     *
+     * @param vista Instancia de la vista a utilizar
+     */
     public ControladorConcesionario(VistaConcesionario vista) {
 
         this.vista = vista;
@@ -32,7 +46,7 @@ public class ControladorConcesionario implements IControlador {
 
     // funciones ..............................................................................
 
-
+    @Override
     public void cargarDatosIniciales() {
 
         List<CocheDTO> listaCoche = new ArrayList<>();
@@ -40,17 +54,17 @@ public class ControladorConcesionario implements IControlador {
         listaCoche.add(new CocheDTO("Opel", "Corsa 1.2T XHL", "4567-MTB", 15200, 2021, 78260, true));
         listaCoche.add(new CocheDTO("Nissan", "Juke 1.0 DIG-T", "8765-KPD", 17800, 2020, 52980, true));
         listaCoche.add(new CocheDTO("Renault", "Clio E-Tech", "1234-LMN", 21500, 2022, 25000, true));
-        listaCoche.add(new CocheDTO("Volvo", "XC40 D3 Momentum", "9012-HZX", 26900, 2019, 85000,true));
+        listaCoche.add(new CocheDTO("Volvo", "XC40 D3 Momentum", "9012-HZX", 26900, 2019, 85000, true));
         listaCoche.add(new CocheDTO("Volkswagen", "Golf 1.6 TDI", "2222-JKL", 14800, 2017, 105000, true));
         listaCoche.add(new CocheDTO("Renault", "Clio E-Tech", "9988-PLM", 21800, 2022, 31000, true));
         listaCoche.add(new CocheDTO("Seat", "Ibiza 1.0 TSI", "5643-HGF", 13900, 2020, 45000, true));
-        listaCoche.add(new CocheDTO("Toyota", "Corolla Hybrid", "6712-KBG", 20500, 2019, 60000,true));
+        listaCoche.add(new CocheDTO("Toyota", "Corolla Hybrid", "6712-KBG", 20500, 2019, 60000, true));
         listaCoche.add(new CocheDTO("Ford", "Focus 1.0 EcoBoost", "3456-JYT", 16200, 2021, 38000, true));
         listaCoche.add(new CocheDTO("BMW", "X1 sDrive18d", "7788-KRT", 29500, 2018, 72000, true));
-        listaCoche.add(new CocheDTO("Audi", "A3 Sportback 1.6 TDI", "8899-MZT", 25500, 2017, 90000,true));
+        listaCoche.add(new CocheDTO("Audi", "A3 Sportback 1.6 TDI", "8899-MZT", 25500, 2017, 90000, true));
         listaCoche.add(new CocheDTO("Mercedes", "A180 CDI", "1122-LHG", 23900, 2019, 64000, true));
-        listaCoche.add(new CocheDTO("Hyundai", "Tucson 1.6 GDi", "4312-NBV", 21000, 2020, 50000,true));
-        listaCoche.add(new CocheDTO("Kia", "Sportage 1.6 CRDi", "7812-JSP", 22500, 2021, 43000,true));
+        listaCoche.add(new CocheDTO("Hyundai", "Tucson 1.6 GDi", "4312-NBV", 21000, 2020, 50000, true));
+        listaCoche.add(new CocheDTO("Kia", "Sportage 1.6 CRDi", "7812-JSP", 22500, 2021, 43000, true));
 
         coches = listaCoche;
 
@@ -92,15 +106,15 @@ public class ControladorConcesionario implements IControlador {
 
         String busqueda = vista.buscarCochePorMarca();
         boolean seEncontroAlgunCoche = false;
-        for (CocheDTO coche : coches ){
+        for (CocheDTO coche : coches) {
 
-            if (coche.getMarca().equals(busqueda)){
+            if (coche.getMarca().equals(busqueda)) {
                 vista.mostrarCoche(coche);
                 seEncontroAlgunCoche = true;
             }
         }
 
-        if(!seEncontroAlgunCoche) vista.mostrarError("La marca introducida no esta registrada");
+        if (!seEncontroAlgunCoche) vista.mostrarError("La marca introducida no esta registrada");
 
 
     }
@@ -112,40 +126,39 @@ public class ControladorConcesionario implements IControlador {
         int min = 0, max = 0;
         boolean seEncontroAlgunCoche = false;
 
-        if(op == 1){
+        if (op == 1) {
             min = 12000;
             max = 16000;
         }
 
-        if (op == 2){
+        if (op == 2) {
             min = 16000;
             max = 20000;
         }
 
-        if (op == 3){
+        if (op == 3) {
             min = 20000;
             max = 30000;
         }
 
-        if (op == 4){
+        if (op == 4) {
             min = 30000;
             max = 50000;
         }
 
-        if (op == 5){
+        if (op == 5) {
             return;
         }
 
-        for (CocheDTO coche : coches ){
+        for (CocheDTO coche : coches) {
 
-            if (coche.getPrecio() >= min && coche.getPrecio() <= max){
+            if (coche.getPrecio() >= min && coche.getPrecio() <= max) {
                 vista.mostrarCoche(coche);
                 seEncontroAlgunCoche = true;
             }
         }
 
-        if(!seEncontroAlgunCoche) vista.mostrarError("El precio introducido no esta registrado");
-
+        if (!seEncontroAlgunCoche) vista.mostrarError("El precio introducido no esta registrado");
 
 
     }
@@ -155,15 +168,15 @@ public class ControladorConcesionario implements IControlador {
 
         int busqueda = vista.buscarCochePorAnho();
         boolean seEncontroAlgunCoche = false;
-        for (CocheDTO coche : coches ){
+        for (CocheDTO coche : coches) {
 
-            if (coche.getAnho() == busqueda){
+            if (coche.getAnho() == busqueda) {
                 vista.mostrarCoche(coche);
                 seEncontroAlgunCoche = true;
             }
         }
 
-        if(!seEncontroAlgunCoche) vista.mostrarError("El año introducido no esta registrada");
+        if (!seEncontroAlgunCoche) vista.mostrarError("El año introducido no esta registrada");
 
 
     }
@@ -176,7 +189,7 @@ public class ControladorConcesionario implements IControlador {
     }
 
     @Override
-    public void mostrarTodosLosClientesCTRLDR(){
+    public void mostrarTodosLosClientesCTRLDR() {
 
         vista.mostrarListaClientes(clientes);
     }
@@ -245,31 +258,31 @@ public class ControladorConcesionario implements IControlador {
                 mostrarTodosLosCocheCTRLDR();
             }
 
-            if (op == 3){
+            if (op == 3) {
                 buscarCochePorMarcaCTRLDR();
             }
 
-            if (op == 4){
+            if (op == 4) {
                 buscarCochePorPrecioCTRLDR();
             }
 
-            if (op == 5){
+            if (op == 5) {
                 buscarCochePorAnhoCTRLDR();
             }
 
 
-            if (op == 6){
+            if (op == 6) {
                 mostrarTodosLosClientesCTRLDR();
             }
 
-            if (op == 7){
+            if (op == 7) {
                 ClientesDTO cliente = vista.registrarClienteMenu();
                 registrarClienteCTRLDR(cliente);
             }
 
             if (op == 8) {
 
-                registrarVentaCTRLDR(coches,clientes,ventas);
+                registrarVentaCTRLDR(coches, clientes, ventas);
             }
 
             if (op == 9) {

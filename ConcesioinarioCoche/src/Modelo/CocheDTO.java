@@ -1,5 +1,11 @@
 package Modelo;
 
+/**
+ * Clase que representa un Coche en el sistema del concesionario.
+ * Implementa el patrón DTO para transportar datos del Coche.
+ *
+ * @author Alexandre Domínguez Avendaño
+ */
 public class CocheDTO {
 
     //Atributos
@@ -12,6 +18,18 @@ public class CocheDTO {
     private boolean disponible;
 
     // Constructor
+
+    /**
+     * Constructor para crear un nuevo cliente.
+     *
+     * @param marca Marca del coche
+     * @param modelo modelo del coche
+     * @param matricula Matrícula del coche
+     * @param precio Precio del coche
+     * @param anho Año de fabricacion del coche
+     * @param km Kilometros totales recorridos
+     * @param disponible representa si el coche ha sido vendido o no
+     */
     public CocheDTO(String marca, String modelo, String matricula, float precio, int anho, int km, boolean disponible) {
         this.marca = marca;
         this.modelo = modelo;

@@ -8,21 +8,34 @@ import Modelo.VentasDTO;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Implementación de la Vista en el patrón MVC.
+ * Gestiona toda la interacción con el usuario a través de la consola.
+ *
+ * @author Alexandre Domínguez Avendaño
+ *
+ */
 public class VistaConcesionario implements IVista {
     Scanner sc = new Scanner(System.in);
 
 
     //funciones----------------------------------------------------------------------------------------------------------------
 
-    @Override
-    public int menu() {
 
+    @Override
+    public void imprimirLogo() {
         System.out.println("\n");
         System.out.println("|^^^^^^^^^^^\\||____\n" +
                 "| RODOVIGO  |||\"\"'|\"\"\\__,_\n" +
                 "| _____________ l||__|__|__|)\n" +
                 "..|(@)@)\"\"\"\"\"\"\"**|(@)(@)**|(@)\n");
         System.out.println("\n");
+    }
+
+    @Override
+    public int menu() {
+
+        imprimirLogo();
 
         System.out.println("-----------------------------------------");
         System.out.println("--------------Menu Principal-------------");
@@ -60,7 +73,7 @@ public class VistaConcesionario implements IVista {
     }
 
     @Override
-    public int mostrarSubmenuPreciosCoche(){
+    public int mostrarSubmenuPreciosCoche() {
 
         System.out.println("-----------------------------------------");
         System.out.println("--------------Menu Precios---------------");
@@ -98,14 +111,45 @@ public class VistaConcesionario implements IVista {
 
         System.out.println("Para añadir la un coche se necesitan los siguientes datos: ");
 
-        System.out.println("Marca:");
-        String marca = sc.nextLine();
+        String marca;
+        while (true) {
+            System.out.println("Marca:");
+            marca = sc.nextLine();
 
-        System.out.println("Modelo:");
-        String modelo = sc.nextLine();
+            if (marca.isBlank()) {
+                mostrarError("Se debe introducir una marca");
+            } else {
+                mostrarMensaje("Marca introducida correctamente");
+                break;
+            }
+        }
 
-        System.out.println("Matricula:");
-        String matricula = sc.nextLine();
+        String modelo;
+        while (true) {
+            System.out.println("Modelo:");
+            modelo = sc.nextLine();
+
+            if (modelo.isBlank()) {
+                mostrarError("Se debe introducir un modelo");
+            } else {
+                mostrarMensaje("Modelo introducido correctamente");
+                break;
+            }
+        }
+
+        String matricula;
+        while (true) {
+
+            System.out.println("Matricula:");
+            matricula = sc.nextLine();
+
+            if (matricula.isBlank()) {
+                mostrarError("Se debe introducir una matricula");
+            } else {
+                mostrarMensaje("Matricula introducida correctamente");
+                break;
+            }
+        }
 
         float precio = 0;
         while (true) {
@@ -114,8 +158,12 @@ public class VistaConcesionario implements IVista {
             precio = sc.nextFloat();
             sc.nextLine();
 
-            if (precio >= 0)
+            if (precio >= 0) {
+
+                System.out.println("Precio introducido correctamente");
                 break;
+            }
+
             System.err.println("El precio debe ser mayor a 0");
 
             System.err.println("Introduce un número válido");
@@ -129,8 +177,12 @@ public class VistaConcesionario implements IVista {
             anho = sc.nextInt();
             sc.nextLine();
 
-            if (anho >= 1900 && anho <= 2025)
+            if (anho >= 1900 && anho <= 2025) {
+
+                System.out.println("Año introducido correctamente");
                 break;
+            }
+
 
             System.err.println("Año no válido");
             System.err.println("Introduce un número válido");
@@ -144,8 +196,12 @@ public class VistaConcesionario implements IVista {
             km = sc.nextInt();
             sc.nextLine();
 
-            if (km >= 0)
+            if (km >= 0) {
+
+                System.out.println("Kilometros introducidos correctamente");
                 break;
+            }
+
 
             System.err.println("Los km no pueden ser menores que cero");
             System.err.println("Introduce un número válido");
@@ -173,14 +229,13 @@ public class VistaConcesionario implements IVista {
         System.out.println("------------------------------------");
 
 
-
     }
 
     @Override
     public void mostrarListaCoches(List<CocheDTO> coches) {
 
         System.out.println("Total de coches en el expositor: " + coches.size());
-        System.out.println("-------------------------------------------------");
+        System.out.println("------------------------------------------------------------------------------------------------------------------------");
 
         for (int i = 0; i < coches.size(); i++) {
             CocheDTO coche = coches.get(i);
@@ -190,6 +245,8 @@ public class VistaConcesionario implements IVista {
                     " - AÑO: " + coche.getAnho() +
                     " - DISPONIBLE: " + coche.isDisponible());
         }
+
+        System.out.println("------------------------------------------------------------------------------------------------------------------------");
 
     }
 
@@ -201,7 +258,7 @@ public class VistaConcesionario implements IVista {
     }
 
     @Override
-    public float buscarCochePorPrecio(){
+    public float buscarCochePorPrecio() {
 
         System.out.println("Introduce un precio estimado para el coche:");
 
@@ -214,12 +271,11 @@ public class VistaConcesionario implements IVista {
     }
 
     @Override
-    public int buscarCochePorAnho(){
+    public int buscarCochePorAnho() {
 
         System.out.println("Introduce el año de fabricacion del coche buscado:");
         return sc.nextInt();
     }
-
 
     @Override
     public void mostrarCochesEncontrados(List<CocheDTO> coches) {
@@ -263,14 +319,14 @@ public class VistaConcesionario implements IVista {
         }
 
         System.out.println("Nuevo cliente añadido a expositor");
-        return new ClientesDTO(dni,nombre,telefono);
+        return new ClientesDTO(dni, nombre, telefono);
     }
 
     @Override
     public void mostrarListaClientes(List<ClientesDTO> clientes) {
 
         System.out.println("Total de coches en el expositor: " + clientes.size());
-        System.out.println("-------------------------------------------------");
+        System.out.println("-------------------------------------------------------");
 
         for (int i = 0; i < clientes.size(); i++) {
             ClientesDTO cliente = clientes.get(i);
@@ -278,6 +334,7 @@ public class VistaConcesionario implements IVista {
                     " - TELEFONO: " + cliente.getTelefono());
         }
 
+        System.out.println("-------------------------------------------------------");
     }
 
     @Override
@@ -295,7 +352,6 @@ public class VistaConcesionario implements IVista {
         sc.nextLine();
 
 
-
         // Mostrar los clientes ........................................
         for (int i = 0; i < clientes.size(); i++) {
             ClientesDTO cliente = clientes.get(i);
@@ -307,13 +363,12 @@ public class VistaConcesionario implements IVista {
         sc.nextLine();
 
 
-
         // Crear la venta
         CocheDTO coche = cochesDisponibles.get(cocheSeleccionado);
         ClientesDTO cliente = clientes.get(clienteSeleccionado);
 
         int Id = ventas.size();
-        return new VentasDTO( Id, cliente.getNombre(), coche.getMarca() + coche.getModelo(), new java.util.Date(), coche.getPrecio());
+        return new VentasDTO(Id, cliente.getNombre(), coche.getMarca() + coche.getModelo(), new java.util.Date(), coche.getPrecio());
     }
 
 
@@ -345,9 +400,11 @@ public class VistaConcesionario implements IVista {
     }
 
     @Override
-    public void mostrarDespedida(){
+    public void mostrarDespedida() {
         System.out.println("Gracias por utilizar nuestra aplicacion");
         System.out.println("¡¡Hasta la proxima!!");
+
+        imprimirLogo();
     }
 
 

@@ -1,5 +1,11 @@
 package Modelo;
 
+/**
+ * Clase que representa un Cliente en el sistema del concesionario.
+ * Implementa el patrón DTO para transportar datos del cliente.
+ *
+ * @author Alexandre Domínguez Avendaño
+ */
 public class ClientesDTO {
 
     //Atributos
@@ -8,6 +14,13 @@ public class ClientesDTO {
     private int telefono;
 
     //Constructor
+    /**
+     * Constructor para crear un nuevo cliente.
+     *
+     * @param dni Documento Nacional de Identidad del cliente
+     * @param nombre Nombre del cliente
+     * @param telefono Número de teléfono de contacto
+     */
     public ClientesDTO(String dni, String nombre, int telefono) {
         this.dni = dni;
         this.nombre = nombre;

@@ -1,9 +1,13 @@
 package Modelo;
 
-import java.time.LocalDate;
-import java.time.ZonedDateTime;
 import java.util.Date;
 
+/**
+ * Clase que representa una Venta hacia un cliente en el sistema del concesionario.
+ * Implementa el patrón DTO para transportar datos del cliente.
+ *
+ * @author Alexandre Domínguez Avendaño
+ */
 public class VentasDTO {
 
     //Atributos
@@ -14,6 +18,16 @@ public class VentasDTO {
     private float precioVenta;
 
     //Constructor
+
+    /**
+     * Constructor para crear un nuevo cliente.
+     *
+     * @param id           Identificador principal de la venta
+     * @param cliente      Nombre del cliente
+     * @param cocheCliente Coche elegido por el cliente
+     * @param fecha        fecha en la que se realízo la venta
+     * @param precioVenta  Precio al que se vendió el coche
+     */
     public VentasDTO(int id, String cliente, String cocheCliente, Date fecha, float precioVenta) {
         this.id = id;
         this.cliente = cliente;
