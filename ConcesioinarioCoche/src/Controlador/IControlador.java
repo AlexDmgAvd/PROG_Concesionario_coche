@@ -72,6 +72,10 @@ public interface IControlador {
      */
     void listarVentaCTRLDR();
 
+    List<CocheDTO> filtrarCochesDisponibles();
+
+    boolean existeMatricula(String matricula);
+
     /**
      * Ejecuta el bucle principal de la aplicación.
      * Gestiona el programa según las selecciones del usuario.

@@ -5,8 +5,8 @@ import Modelo.CocheDTO;
 import Modelo.VentasDTO;
 import Vista.VistaConcesionario;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -78,14 +78,15 @@ public class ControladorConcesionario implements IControlador {
         clientes = listaCliente;
 
         List<VentasDTO> listaVentas = new ArrayList<>();
-        listaVentas.add(new VentasDTO(1, "Maria", "Kia", new Date(125, 12, 04), 20500));
-        listaVentas.add(new VentasDTO(2, "Ana", "Mercedes", new Date(125, 7, 21), 21500));
-        listaVentas.add(new VentasDTO(3, "Pedro", "Mercedes", new Date(125, 2, 05), 26900));
-        listaVentas.add(new VentasDTO(4, "Maria", "Volkswagen", new Date(125, 12, 20), 14800));
+        listaVentas.add(new VentasDTO(1, "Maria", "Kia", LocalDate.of(2025, 12, 4), 20500));
+        listaVentas.add(new VentasDTO(2, "Ana", "Mercedes", LocalDate.of(2025, 7, 21), 21500));
+        listaVentas.add(new VentasDTO(3, "Pedro", "Mercedes", LocalDate.of(2025, 2, 5), 26900));
+        listaVentas.add(new VentasDTO(4, "Maria", "Volkswagen", LocalDate.of(2025, 12, 20), 14800));
 
         ventas = listaVentas;
 
     }
+
 
     @Override
     public void anhadirCocheCTRLDR(CocheDTO coche) {
@@ -97,8 +98,8 @@ public class ControladorConcesionario implements IControlador {
     @Override
     public void mostrarTodosLosCocheCTRLDR() {
 
-        vista.mostrarListaCoches(coches);
-
+        List<CocheDTO> disponibles = filtrarCochesDisponibles();
+        vista.mostrarListaCoches(disponibles);
     }
 
     @Override
@@ -168,17 +169,15 @@ public class ControladorConcesionario implements IControlador {
 
         int busqueda = vista.buscarCochePorAnho();
         boolean seEncontroAlgunCoche = false;
-        for (CocheDTO coche : coches) {
 
-            if (coche.getAnho() == busqueda) {
+        for (CocheDTO coche : coches) {
+            if (coche.getAnho() >= busqueda) {
                 vista.mostrarCoche(coche);
                 seEncontroAlgunCoche = true;
             }
         }
 
-        if (!seEncontroAlgunCoche) vista.mostrarError("El año introducido no esta registrada");
-
-
+        if (!seEncontroAlgunCoche) vista.mostrarError("No se encontraron coches del año " + busqueda + " o más nuevos");
     }
 
     @Override
@@ -241,6 +240,27 @@ public class ControladorConcesionario implements IControlador {
 
         vista.mostrarListaVentas(ventas);
 
+    }
+
+    @Override
+    public List<CocheDTO> filtrarCochesDisponibles() {
+        List<CocheDTO> disponibles = new ArrayList<>();
+        for (CocheDTO coche : coches) {
+            if (coche.isDisponible()) {
+                disponibles.add(coche);
+            }
+        }
+        return disponibles;
+    }
+
+    @Override
+    public boolean existeMatricula(String matricula) {
+        for (CocheDTO coche : coches) {
+            if (coche.getMatricula().equalsIgnoreCase(matricula)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

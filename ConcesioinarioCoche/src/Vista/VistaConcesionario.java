@@ -1,6 +1,7 @@
 package Vista;
 
 
+import Controlador.ControladorConcesionario;
 import Modelo.ClientesDTO;
 import Modelo.CocheDTO;
 import Modelo.VentasDTO;
@@ -139,12 +140,13 @@ public class VistaConcesionario implements IVista {
 
         String matricula;
         while (true) {
-
             System.out.println("Matricula:");
             matricula = sc.nextLine();
 
             if (matricula.isBlank()) {
                 mostrarError("Se debe introducir una matricula");
+            } else if (ControladorConcesionario.existeMatricula(matricula)) {
+                mostrarError("La matrícula " + matricula + " ya existe en el sistema");
             } else {
                 mostrarMensaje("Matricula introducida correctamente");
                 break;

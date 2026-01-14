@@ -1,5 +1,6 @@
 package Modelo;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -28,7 +29,7 @@ public class VentasDTO {
      * @param fecha        fecha en la que se realízo la venta
      * @param precioVenta  Precio al que se vendió el coche
      */
-    public VentasDTO(int id, String cliente, String cocheCliente, Date fecha, float precioVenta) {
+    public VentasDTO(int id, String cliente, String cocheCliente, LocalDate fecha, float precioVenta) {
         this.id = id;
         this.cliente = cliente;
         this.cocheCliente = cocheCliente;
