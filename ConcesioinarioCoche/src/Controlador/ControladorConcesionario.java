@@ -91,8 +91,13 @@ public class ControladorConcesionario implements IControlador {
     @Override
     public void anhadirCocheCTRLDR(CocheDTO coche) {
 
-        coches.add(coche);
+        if (existeMatricula(coche.getMatricula())) {
+            vista.mostrarError("La matrícula " + coche.getMatricula() + " ya existe en el sistema");
+            return;
+        }
 
+        coches.add(coche);
+        vista.mostrarMensaje("Coche añadido correctamente al sistema");
     }
 
     @Override

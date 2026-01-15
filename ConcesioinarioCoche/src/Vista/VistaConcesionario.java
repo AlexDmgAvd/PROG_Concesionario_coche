@@ -6,6 +6,7 @@ import Modelo.ClientesDTO;
 import Modelo.CocheDTO;
 import Modelo.VentasDTO;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
@@ -145,8 +146,6 @@ public class VistaConcesionario implements IVista {
 
             if (matricula.isBlank()) {
                 mostrarError("Se debe introducir una matricula");
-            } else if (ControladorConcesionario.existeMatricula(matricula)) {
-                mostrarError("La matrícula " + matricula + " ya existe en el sistema");
             } else {
                 mostrarMensaje("Matricula introducida correctamente");
                 break;
@@ -214,7 +213,7 @@ public class VistaConcesionario implements IVista {
 
 
         System.out.println("Nuevo coche añadido a expositor");
-        return new CocheDTO(marca, modelo, matricula, precio, anho, km, disponible);
+        return new CocheDTO(marca, modelo, matricula, precio, anho, km, true);
     }
 
     @Override
@@ -295,12 +294,19 @@ public class VistaConcesionario implements IVista {
 
     @Override
     public ClientesDTO registrarClienteMenu() {
+        System.out.println("Para añadir un nuevo cliente se necesitan los siguientes datos: ");
 
+        String dni;
+        while (true) {
+            System.out.println("DNI:");
+            dni = sc.nextLine();
 
-        System.out.println("Para añadir ha un nuevo cliente  se necesitan los siguientes datos: ");
-
-        System.out.println("Dni:");
-        String dni = sc.nextLine();
+            if (dni.isBlank()) {
+                mostrarError("Se debe introducir un DNI");
+            } else {
+                break;
+            }
+        }
 
         System.out.println("Nombre:");
         String nombre = sc.nextLine();
@@ -353,6 +359,23 @@ public class VistaConcesionario implements IVista {
         int cocheSeleccionado = sc.nextInt() - 1;
         sc.nextLine();
 
+        while (true) {
+            System.out.print("\nSelecciona coche (1-" + cochesDisponibles.size() + "): ");
+            try {
+                cocheSeleccionado = sc.nextInt() - 1;
+                sc.nextLine();
+
+                if (cocheSeleccionado >= 0 && cocheSeleccionado < cochesDisponibles.size()) {
+                    break;
+                } else {
+                    mostrarError("Selección inválida. Introduce un número entre 1 y " + cochesDisponibles.size());
+                }
+            } catch (Exception e) {
+                mostrarError("Debes introducir un número válido");
+                sc.nextLine();
+            }
+        }
+
 
         // Mostrar los clientes ........................................
         for (int i = 0; i < clientes.size(); i++) {
@@ -364,14 +387,61 @@ public class VistaConcesionario implements IVista {
         int clienteSeleccionado = sc.nextInt() - 1;
         sc.nextLine();
 
+        while (true) {
+            System.out.print("\nSelecciona coche (1-" + clientes.size() + "): ");
+            try {
+                clienteSeleccionado = sc.nextInt() - 1;
+                sc.nextLine();
+
+                if (clienteSeleccionado >= 0 && clienteSeleccionado < clientes.size()) {
+                    break;
+                } else {
+                    mostrarError("Selección inválida. Introduce un número entre 1 y " + clientes .size());
+                }
+            } catch (Exception e) {
+                mostrarError("Debes introducir un número válido");
+                sc.nextLine();
+            }
+        }
 
         // Crear la venta
         CocheDTO coche = cochesDisponibles.get(cocheSeleccionado);
         ClientesDTO cliente = clientes.get(clienteSeleccionado);
 
         int Id = ventas.size();
-        return new VentasDTO(Id, cliente.getNombre(), coche.getMarca() + coche.getModelo(), new java.util.Date(), coche.getPrecio());
+
+
+
+        // Permitir modificar el precio de venta
+
+        float precioCoche = coche.getPrecio();
+        System.out.printf("\nPrecio original del coche: %.2f€%n", precioCoche);
+        System.out.print("Introduce precio de venta (enter para usar precio original): ");
+
+        String precioIntroducido = sc.nextLine();
+
+        float precioVenta;
+
+        if (precioIntroducido.isEmpty()) {
+            precioVenta = precioCoche;
+        } else {
+            try {
+                precioVenta = Float.parseFloat(precioIntroducido);
+                if (precioVenta <= 0) {
+                    mostrarError("El precio debe ser mayor que 0. Usando precio original.");
+                    precioVenta = precioCoche;
+                }
+            } catch (NumberFormatException e) {
+                mostrarError("Formato inválido. Usando precio original.");
+                precioVenta = precioCoche;
+            }
+        }
+
+        return new VentasDTO(Id, cliente.getNombre(), coche.getMarca() + coche.getModelo(),  LocalDate.now(), coche.getPrecio());
+
     }
+
+
 
 
     @Override
