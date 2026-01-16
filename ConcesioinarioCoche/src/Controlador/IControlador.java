@@ -72,8 +72,14 @@ public interface IControlador {
      */
     void listarVentaCTRLDR();
 
+    /**
+     * Filtra y devuelve solo los coches disponibles.
+     */
     List<CocheDTO> filtrarCochesDisponibles();
 
+    /**
+     * Verifica si una matrícula ya existe en el sistema.
+     */
     boolean existeMatricula(String matricula);
 
     /**

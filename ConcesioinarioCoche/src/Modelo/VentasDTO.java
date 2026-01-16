@@ -2,6 +2,7 @@ package Modelo;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Clase que representa una Venta hacia un cliente en el sistema del concesionario.
@@ -15,7 +16,7 @@ public class VentasDTO {
     private int id;
     private String cliente;
     private String cocheCliente;
-    private Date fecha;
+    private LocalDate fecha;
     private float precioVenta;
 
     //Constructor
@@ -37,12 +38,10 @@ public class VentasDTO {
         this.precioVenta = precioVenta;
     }
 
-    //Getter
     public int getId() {
         return id;
     }
 
-    //Setter
     public void setId(int id) {
         this.id = id;
     }
@@ -63,11 +62,13 @@ public class VentasDTO {
         this.cocheCliente = cocheCliente;
     }
 
-    public Date getFecha() {
+    public LocalDate getFecha() {
+
+
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 

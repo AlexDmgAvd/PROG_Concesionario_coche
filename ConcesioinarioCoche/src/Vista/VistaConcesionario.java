@@ -235,6 +235,8 @@ public class VistaConcesionario implements IVista {
     @Override
     public void mostrarListaCoches(List<CocheDTO> coches) {
 
+        System.out.println("\n=== LISTA DE COCHES DISPONIBLES ===");
+
         System.out.println("Total de coches en el expositor: " + coches.size());
         System.out.println("------------------------------------------------------------------------------------------------------------------------");
 
@@ -384,8 +386,7 @@ public class VistaConcesionario implements IVista {
         }
 
         System.out.print("Selecciona cliente: ");
-        int clienteSeleccionado = sc.nextInt() - 1;
-        sc.nextLine();
+        int clienteSeleccionado;
 
         while (true) {
             System.out.print("\nSelecciona coche (1-" + clientes.size() + "): ");
@@ -437,12 +438,9 @@ public class VistaConcesionario implements IVista {
             }
         }
 
-        return new VentasDTO(Id, cliente.getNombre(), coche.getMarca() + coche.getModelo(),  LocalDate.now(), coche.getPrecio());
+        return new VentasDTO(Id, cliente.getNombre(), coche.getMarca() + coche.getModelo(),  LocalDate.now(), precioVenta);
 
     }
-
-
-
 
     @Override
     public void mostrarListaVentas(List<VentasDTO> ventas) {
@@ -452,10 +450,13 @@ public class VistaConcesionario implements IVista {
 
         for (int i = 0; i < ventas.size(); i++) {
             VentasDTO venta = ventas.get(i);
+            String fecha = venta.getFecha().getDayOfMonth() + "/" + venta.getFecha().getMonthValue() + "/" + venta.getFecha().getYear();
+
             System.out.println((i + 1) + " ID: " + venta.getId() +
                     " - Cliente: " + venta.getCliente() +
                     " - Coche: " + venta.getCocheCliente() +
-                    " - Precio: " + venta.getPrecioVenta() + "€");
+                    " - Precio: " + venta.getPrecioVenta() + "€" +
+                    " - Fecha: " + fecha);
         }
     }
 
