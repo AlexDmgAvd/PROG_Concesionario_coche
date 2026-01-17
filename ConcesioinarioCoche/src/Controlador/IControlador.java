@@ -82,6 +82,8 @@ public interface IControlador {
      */
     boolean existeMatricula(String matricula);
 
+    boolean existeDNI(String dni);
+
     /**
      * Ejecuta el bucle principal de la aplicación.
      * Gestiona el programa según las selecciones del usuario.

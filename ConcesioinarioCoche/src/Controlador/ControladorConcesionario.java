@@ -114,7 +114,7 @@ public class ControladorConcesionario implements IControlador {
         boolean seEncontroAlgunCoche = false;
         for (CocheDTO coche : coches) {
 
-            if (coche.getMarca().equals(busqueda)) {
+            if (coche.isDisponible() && coche.getMarca().equals(busqueda)) {
                 vista.mostrarCoche(coche);
                 seEncontroAlgunCoche = true;
             }
@@ -158,11 +158,12 @@ public class ControladorConcesionario implements IControlador {
 
         for (CocheDTO coche : coches) {
 
-            if (coche.getPrecio() >= min && coche.getPrecio() <= max) {
+            if (coche.isDisponible() && coche.getPrecio() >= min && coche.getPrecio() <= max) {
                 vista.mostrarCoche(coche);
                 seEncontroAlgunCoche = true;
             }
         }
+
 
         if (!seEncontroAlgunCoche) vista.mostrarError("El precio introducido no esta registrado");
 
@@ -188,8 +189,14 @@ public class ControladorConcesionario implements IControlador {
     @Override
     public void registrarClienteCTRLDR(ClientesDTO cliente) {
 
-        clientes.add(cliente);
+        // No añade el cliente
+        if (existeDNI(cliente.getDni())) {
+            vista.mostrarError("ERROR: El DNI " + cliente.getDni() + " ya está registrado");
+            return;
+        }
 
+        clientes.add(cliente);
+        vista.mostrarMensaje("Cliente registrado correctamente");
     }
 
     @Override
@@ -262,6 +269,16 @@ public class ControladorConcesionario implements IControlador {
     public boolean existeMatricula(String matricula) {
         for (CocheDTO coche : coches) {
             if (coche.getMatricula().equalsIgnoreCase(matricula)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean existeDNI(String dni) {
+        for (ClientesDTO cliente : clientes) {
+            if (cliente.getDni().equals(dni)) {
                 return true;
             }
         }

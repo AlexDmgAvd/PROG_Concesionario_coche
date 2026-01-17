@@ -313,20 +313,21 @@ public class VistaConcesionario implements IVista {
         System.out.println("Nombre:");
         String nombre = sc.nextLine();
 
-        int telefono = 0;
+        String telefonoTexto;
         while (true) {
-            System.out.println("Telefono del Modelo: ");
+            System.out.println("Teléfono (9 dígitos o más):");
+            telefonoTexto = sc.nextLine();
 
-            telefono = sc.nextInt();
-            sc.nextLine();
+            String soloNumeros = telefonoTexto.replaceAll("[^0-9]", "");
 
-            if (telefono >= 100000000 && telefono <= 999999999)
+            if (soloNumeros.length() >= 9) {
                 break;
-
-            System.err.println("Telefono no válido");
-            System.err.println("Introduce un número válido");
-            sc.nextLine();
+            } else {
+                System.out.println("El teléfono debe tener al menos 9 números");
+            }
         }
+
+        int telefono = Integer.parseInt(telefonoTexto.replaceAll("[^0-9]", ""));
 
         System.out.println("Nuevo cliente añadido a expositor");
         return new ClientesDTO(dni, nombre, telefono);
@@ -335,16 +336,18 @@ public class VistaConcesionario implements IVista {
     @Override
     public void mostrarListaClientes(List<ClientesDTO> clientes) {
 
-        System.out.println("Total de coches en el expositor: " + clientes.size());
-        System.out.println("-------------------------------------------------------");
+        System.out.println("\n=== LISTA DE CLIENTES ===");
+        System.out.println("Total de clientes: " + clientes.size());
+        System.out.println("=================================================");
 
         for (int i = 0; i < clientes.size(); i++) {
             ClientesDTO cliente = clientes.get(i);
-            System.out.println((i + 1) + "- DNI: " + cliente.getDni() + "- NOMBRE: " + cliente.getNombre() +
-                    " - TELEFONO: " + cliente.getTelefono());
+            System.out.println((i + 1) + " - DNI: " + cliente.getDni() +
+                    " - NOMBRE: " + cliente.getNombre() +
+                    " - TEL: " + cliente.getTelefono());
         }
 
-        System.out.println("-------------------------------------------------------");
+        System.out.println("=================================================\n");
     }
 
     @Override
@@ -389,7 +392,7 @@ public class VistaConcesionario implements IVista {
         int clienteSeleccionado;
 
         while (true) {
-            System.out.print("\nSelecciona coche (1-" + clientes.size() + "): ");
+            System.out.print("\nSelecciona cliente (1-" + clientes.size() + "): ");
             try {
                 clienteSeleccionado = sc.nextInt() - 1;
                 sc.nextLine();
@@ -438,15 +441,16 @@ public class VistaConcesionario implements IVista {
             }
         }
 
-        return new VentasDTO(Id, cliente.getNombre(), coche.getMarca() + coche.getModelo(),  LocalDate.now(), precioVenta);
+        return new VentasDTO(Id, cliente.getNombre(), coche.getMarca() + " " + coche.getModelo(), LocalDate.now(), precioVenta);
 
     }
 
     @Override
     public void mostrarListaVentas(List<VentasDTO> ventas) {
 
+        System.out.println("\n=== LISTA DE VENTAS ===");
         System.out.println("Total de ventas en el expositor: " + ventas.size());
-        System.out.println("-------------------------------------------------");
+        System.out.println("=================================================");
 
         for (int i = 0; i < ventas.size(); i++) {
             VentasDTO venta = ventas.get(i);
@@ -458,6 +462,8 @@ public class VistaConcesionario implements IVista {
                     " - Precio: " + venta.getPrecioVenta() + "€" +
                     " - Fecha: " + fecha);
         }
+
+        System.out.println("=================================================");
     }
 
     @Override
